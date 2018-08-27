@@ -1,0 +1,6 @@
+---
+
+- name: bedrock.common
+  scm: git
+  src: https://github.com/BedrockSolutions/ansible-role-common.git
+  version: master

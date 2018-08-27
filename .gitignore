@@ -1,0 +1,6 @@
+downloaded_roles
+vault_password
+venv
+__pycache__
+*.retry
+*.log
