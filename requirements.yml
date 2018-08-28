@@ -4,3 +4,18 @@
   scm: git
   src: https://github.com/BedrockSolutions/ansible-role-common.git
   version: master
+
+- name: bedrock.hardened-ubuntu
+  scm: git
+  src: https://github.com/BedrockSolutions/ansible-role-hardened-ubuntu.git
+  version: master
+
+- name: bedrock.os
+  scm: git
+  src: https://github.com/BedrockSolutions/ansible-role-os.git
+  version: master
+
+- name: bedrock.ssh
+  scm: git
+  src: https://github.com/BedrockSolutions/ansible-role-ssh.git
+  version: master

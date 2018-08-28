@@ -1,0 +1,25 @@
+---
+
+- hosts: tag_ansible
+  gather_facts: no
+  tasks:
+    - import_role:
+        name: bedrock.ssh
+      vars:
+        ssh:
+          command: known_hosts
+          delegate_to: localhost
+          host: "{{ inventory_hostname }}"
+          key_type: ed25519
+
+- hosts: tag_ansible
+  gather_facts: yes
+  tasks:
+    - import_role:
+        name: bedrock.hardened-ubuntu
+
+    - import_role:
+        name: bedrock.os
+      vars:
+        ssh:
+          command: install_ansible
