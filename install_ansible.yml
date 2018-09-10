@@ -1,6 +1,6 @@
 ---
 
-- hosts: tag_ansible
+- hosts: ansible
   gather_facts: no
   tasks:
     - import_role:
