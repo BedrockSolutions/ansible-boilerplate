@@ -2,7 +2,6 @@
 
 import json
 import os
-import pprint
 import subprocess
 
 gcloud_completed_process = subprocess.run(
@@ -37,15 +36,23 @@ for instance in gce_instances:
     # add instance to all group
     inventory['all']['hosts'].append(instance['name'])
 
-    for tag in instance['tags']['items']:
-        group_name = 'tag_' + tag
+    # add the instance to a service label group
+    if 'labels' in instance and 'service' in instance['labels']:
+        service = instance['labels']['service']
+        inventory[service] = inventory.get(service, [])
+        inventory[service].append(instance['name'])
+        
+        if service not in inventory['all']['children']:
+            inventory['all']['children'].append(service)
 
-        # add instance to tag group
-        inventory[group_name] = inventory.get(group_name, [])
-        inventory[group_name].append(instance['name'])
-
-        # add tag group to all group
-        if group_name not in inventory['all']['children']:
-            inventory['all']['children'].append(group_name)
+    # add the instance to any additional label groups
+    if 'labels' in instance and 'groups' in instance['labels']:
+        groups = instance['labels']['service'].split(',')
+        for group in groups:
+            inventory[group] = inventory.get(group, [])
+            inventory[group].append(instance['name'])
+            
+            if group not in inventory['all']['children']:
+                inventory['all']['children'].append(group)
 
 print(json.dumps(inventory))
